@@ -17,6 +17,7 @@ export function SearchInput({ placeholder, text, onChangeText} : SearchInputProp
             <TextInput className="text-white" placeholder={placeholder}
                 placeholderTextColor="#999999"
                 value={text}
+                clearButtonMode='always'
                 onChangeText={onChangeText}
             ></TextInput>
         </View>

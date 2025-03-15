@@ -32,34 +32,39 @@ export type ParsedFeed = {
 export async function parseFeed(xmlData: string): Promise<ParsedFeed> {
     return new Promise((resolve, reject) => {
         parseString(xmlData, (err, result) => {
+            console.log("err", err)
             if (err) {
                 reject(err)
                 return
             }
             const channel = result.rss.channel[0];
             const header: FeedHeader = {
-                title: channel.title[0],
-                description: channel.description[0],
-                link: channel.link[0],
-                lastBuildDate: channel.lastBuildDate[0],
+                title: channel.title?.[0] ?? '',
+                description: channel.description?.[0] ?? '',
+                link: channel.link?.[0] ?? '',
+                lastBuildDate: channel.lastBuildDate?.[0] ?? '',
             };
-            const items: FeedItem[] = channel.item.map((item: any) => ({
-                title: item.title[0],
-                description: item.description[0],
-                link: item.link[0],
-                guid: item.guid[0]._,
-                category: item.category[0],
-                creator: item['dc:creator'][0],
-                pubDate: item.pubDate[0],
-                enclosure: {
-                    url: item.enclosure[0].$.url,
-                    length: item.enclosure[0].$.length,
-                    type: item.enclosure[0].$.type,
-                },
-                duration: item.duration[0],
-                websiteUrl: item.websiteUrl[0],
-            }));
+            const items: FeedItem[] = channel.item.map((item: any) => {
+                //console.log("item", item)
+                return {
+                    title: item.title?.[0] ?? '',
+                    description: item.description?.[0] ?? '',
+                    link: item.link?.[0] ?? '',
+                    guid: item.guid?.[0]?._ ?? '',
+                    category: item.category?.[0] ?? '',
+                    creator: item['dc:creator']?.[0] ?? '',
+                    pubDate: item.pubDate?.[0] ?? '',
+                    enclosure: {
+                        url: item.enclosure?.[0]?.['$']?.url ?? '',
+                        length: item.enclosure?.[0]?.['$']?.length ?? '',
+                        type: item.enclosure?.[0]?.['$']?.type ?? '',
+                    },
+                    duration: item.duration?.[0] ?? '',
+                    websiteUrl: item.websiteUrl?.[0] ?? '',
+                }
+            })
+            //console.log("items", items)
             resolve({ header, items });
         })
-    })  
+    })
 }

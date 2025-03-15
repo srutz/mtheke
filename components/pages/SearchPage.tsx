@@ -1,13 +1,22 @@
 import { SearchInput } from "components/common/SearchInput";
 import { VideoRenderer } from "components/common/VideoRenderer";
 import { useFeed } from "hooks/Feed";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function SearchPage() {
     const [searchText, setSearchText] = useState("")
-    const feed = useFeed({ query: searchText})
+    const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
+    const feed = useFeed({ query: debouncedSearchText });
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchText(searchText)
+        }, 250)
+        return () => clearTimeout(handler)
+    }, [searchText])
+
     return (
         <SafeAreaView className="flex-1 bg-slate-800">
             <SearchInput placeholder="Search videos" text={searchText} onChangeText={setSearchText} />
