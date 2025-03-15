@@ -33,6 +33,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
+    },
+
+    "expo": {
+        "newArchEnabled": true
     }
   }
 }
