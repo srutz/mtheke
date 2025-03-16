@@ -18,8 +18,6 @@ export type RootStackParamList = {
 }
 
 
-
-
 export default function App() {
     const [loaded, error] = useFonts({
         "Cantarell": require("./assets/fonts/Cantarell-VF.otf"),
