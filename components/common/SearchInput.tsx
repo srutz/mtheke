@@ -14,7 +14,7 @@ export function SearchInput({ placeholder, text, onChangeText} : SearchInputProp
     return (
         <View className="flex flex-row gap-1 items-center border border-gray-500 rounded-lg px-2 py-1 m-2">
             <Ionicons name="search" size={22} color="white" />
-            <TextInput className="text-white" placeholder={placeholder}
+            <TextInput className="grow text-white" placeholder={placeholder}
                 placeholderTextColor="#999999"
                 value={text}
                 clearButtonMode='always'

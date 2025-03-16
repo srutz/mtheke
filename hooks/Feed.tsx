@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
-import { parseFeed } from "./RssParser"
+import { FeedItem, parseFeed } from "./RssParser"
 
 
 async function getFeed({ query }: { query?: string }) {
@@ -12,11 +12,11 @@ async function getFeed({ query }: { query?: string }) {
     const xml = await r.text()
     const feed = await parseFeed(xml)
     console.log("query", feedUrl, r.status, feed?.items?.length)
-    return feed
+    return feed.items
 }
 
 
-export function useFeed({ query } : { query?: string}) {
+export function useFeed({ query, explicitItems } : { query?: string, explicitItems?: FeedItem[] }) {
     const { data } = useQuery({
         queryKey: [ query || "-" ],
         queryFn: async () => {
@@ -24,5 +24,5 @@ export function useFeed({ query } : { query?: string}) {
         },
         placeholderData: keepPreviousData,
     })
-    return data
+    return explicitItems !== undefined ? explicitItems : data 
 }
