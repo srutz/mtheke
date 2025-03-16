@@ -6,7 +6,7 @@ import { DurationRenderer } from 'components/common/DurationRenderer';
 import { useEvent } from 'expo';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { FeedItem } from "hooks/RssParser";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 type RouteProps = RouteProp<RootStackParamList, "Player">;
@@ -21,13 +21,12 @@ export function PlayerPage() {
         player.loop = true
         player.play()
     })
-    const [currentTime, setCurrentTime] = useState(0)
+
     useEffect(() => {
         const i = setInterval(() => {
-            setCurrentTime(player.currentTime)
-        }, 200)
+        }, 500)
         return () => clearInterval(i)
-    }, [player])
+    }, [player, currentTimeRef.current])
 
     const togglePlayPause = () => {
         if (isPlaying) {
@@ -54,7 +53,7 @@ export function PlayerPage() {
                     <Ionicons name={isPlaying ? "pause" : "play"} size={32} color="white" />
                 </TouchableOpacity>
                 <DurationRenderer className="mt-4 text-white text-lg" label="Dauer" seconds={parseInt(item.duration)} />
-                <Text className="text-gray-300 mt-2 text-center">{player.currentTime}</Text>
+                <Text className="text-gray-300 mt-2 text-center"></Text>
             </View>
         </ScrollView>
     )
