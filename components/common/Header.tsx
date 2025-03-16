@@ -12,7 +12,7 @@ export function Header({ title, color = "text-green-500", icon }: HeaderProps) {
     const firstLetter = title[0]
     const remainingLetters = title.slice(1)
     return (
-        <View className="px-2 flex flex-row items-center">
+        <View className="mt-2 px-2 flex flex-row items-center">
             {icon && (
                 <Ionicons name={icon} size={40} color="#efefef" />
             )}

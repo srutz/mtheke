@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { FeedType } from 'components/common/SearchableFeed';
 import { AboutPage } from 'components/pages/AboutPage'; // Import AboutPage
 import { FavoritesPage } from 'components/pages/FavoritesPage';
 import { PlayerPage } from 'components/pages/PlayerPage';
@@ -18,7 +19,9 @@ const client = new QueryClient()
 
 export type RootStackParamList = {
     Home: undefined,
-    Player: { item: FeedItem },
+    Player: { item: FeedItem, feedType: FeedType },
+    Favorites: undefined,
+    About: undefined
 }
 
 function HomeStackNavigator() {

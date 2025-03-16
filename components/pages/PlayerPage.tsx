@@ -1,22 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "App";
 import { DateRenderer } from 'components/common/DateRenderer';
 import { DurationRenderer } from 'components/common/DurationRenderer';
+import { ExternalLink } from 'components/common/ExternalLink';
 import { useEvent } from 'expo';
-import { useVideoPlayer, VideoView } from 'expo-video';
+import { useVideoPlayer, VideoPlayer, VideoView } from 'expo-video';
+import { useAppState } from 'hooks/AppState';
 import { FeedItem } from "hooks/RssParser";
-import { useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { formatNumber } from 'hooks/Util';
+import { useEffect, useState } from 'react';
+import { Button, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 type RouteProps = RouteProp<RootStackParamList, "Player">;
 
 export function PlayerPage() {
     const route = useRoute<RouteProps>();
-    const item = route.params.item as FeedItem;
+    const item = route.params.item
+    const feedType = route.params.feedType
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>()
 
     const videoUrl = item.enclosure.url
     console.log("Playing video", videoUrl)
+    const appState = useAppState()
     const player = useVideoPlayer(videoUrl, player => {
         player.loop = true
         player.play()
@@ -26,7 +32,7 @@ export function PlayerPage() {
         const i = setInterval(() => {
         }, 500)
         return () => clearInterval(i)
-    }, [player, currentTimeRef.current])
+    }, [player])
 
     const togglePlayPause = () => {
         if (isPlaying) {
@@ -48,13 +54,52 @@ export function PlayerPage() {
                     <Text className="text-gray-200">{item.creator}</Text>
                     <DateRenderer className="text-base" date={item.pubDate} />
                 </View>
-                <Text className="text-gray-300 text-sm mb-6 text-center">{item.description}</Text>
-                <TouchableOpacity onPress={togglePlayPause} className="bg-slate-700 p-4 rounded-full">
+                <Text className="text-gray-300 text-sm mb-2 text-center">{item.description}</Text>
+                <ExternalLink url={item.websiteUrl} label="Website" />
+                <TouchableOpacity onPress={togglePlayPause} className="bg-slate-700 mt-4 p-4 rounded-full">
                     <Ionicons name={isPlaying ? "pause" : "play"} size={32} color="white" />
                 </TouchableOpacity>
-                <DurationRenderer className="mt-4 text-white text-lg" label="Dauer" seconds={parseInt(item.duration)} />
-                <Text className="text-gray-300 mt-2 text-center"></Text>
+                <DurationRenderer className="mt-4 text-white" label="Dauer" seconds={parseInt(item.duration)} />
+                {false && (
+                    <TimeDisplay player={player} />
+                )}
+                <View className="mt-4 self-stretch flex flex-row justify-center">
+                    {feedType == "FAVORITES" ? (
+                        <Button title="Remove from favorites"  color="red" onPress={() => {
+                            const favoriteItem = deepCopyItem(item)
+                            favoriteItem.currentTime = player.currentTime
+                            appState.removeFavorite(favoriteItem)
+                            navigation.navigate("Favorites")
+                        }} />
+                    ) : ( 
+                        <Button title="Add to favorites" onPress={() => {
+                            const favoriteItem = deepCopyItem(item)
+                            favoriteItem.currentTime = player.currentTime
+                            appState.addFavorite(favoriteItem)
+                        }} />
+                    )}
+                </View>
             </View>
         </ScrollView>
     )
+}
+
+function deepCopyItem(item: FeedItem): FeedItem {
+    return JSON.parse(JSON.stringify(item))
+}
+
+function TimeDisplay({ player }: { player: VideoPlayer }) {
+    const [time, setTime] = useState(0)
+    const hours = Math.floor(time / 3600)
+    const minutes = Math.floor(time / 60)
+    const seconds = Math.round(time % 60)
+    useEffect(() => {
+        const i = setInterval(() => {
+            setTime(player.currentTime)
+        }, 500)
+        return () => clearInterval(i)
+    }, [player])
+    return (<Text className="text-white">
+        {`${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`}
+    </Text>)
 }

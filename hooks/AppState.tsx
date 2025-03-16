@@ -11,7 +11,7 @@ type AppState = {
 }
 
 // Create store with persistence
-const useStore = create(persist<AppState>(
+export const useAppState = create(persist<AppState>(
     (set) => ({
         favorites: [],
         addFavorite: (item: FeedItem) => set((state) => {

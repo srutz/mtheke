@@ -3,11 +3,13 @@ import { FeedItem } from "hooks/RssParser";
 import { Pressable, Text, View } from "react-native";
 import { DateRenderer } from "./DateRenderer";
 import { DurationRenderer } from "./DurationRenderer";
+import { ExternalLink } from "./ExternalLink";
+import { FeedType } from "./SearchableFeed";
 
-export function VideoRenderer({ item }: { item: FeedItem }) {
+export function VideoRenderer({ item, feedType }: { item: FeedItem, feedType: FeedType }) {
     const navigation = useNavigation<NavigationProp<any>>()
     const handlePress = (item: FeedItem) => {
-        navigation.navigate("Player", { item })
+        navigation.navigate("Player", { item, feedType })
     }
     return (
         <Pressable onPress={() => handlePress(item)} >
@@ -19,6 +21,7 @@ export function VideoRenderer({ item }: { item: FeedItem }) {
                 <Text className="text-white font-bold text-lg leading-[1.2]"
                     >{item.title}</Text>
                 <Text className="text-white text-gray-200">{item.description}</Text>
+                <ExternalLink url={item.websiteUrl} label="Website" />
                 <View className="mt-2 flex flex-row items-center justify-between">
                     <DateRenderer date={item.pubDate} />
                     <DurationRenderer seconds={parseInt(item.duration)} />

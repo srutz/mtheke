@@ -15,6 +15,9 @@ export type FeedItem = {
     };
     duration: string;
     websiteUrl: string;
+
+    // Additional fields set my the app
+    currentTime?: number;
 };
 
 export type FeedHeader = {
