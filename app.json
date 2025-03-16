@@ -1,48 +1,49 @@
 {
+  "expo": {
+    "name": "mtheke",
+    "slug": "mtheke",
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      "expo-video",
+      "expo-font"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
     "expo": {
-        "name": "mtheke",
-        "slug": "mtheke",
-        "version": "1.0.0",
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "experiments": {
-            "tsconfigPaths": true
-        },
-        "plugins": [
-            "expo-video"
-        ],
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            }
-        },
-        "expo": {
-            "newArchEnabled": true,
-            "plugins": [
-                [
-                    "expo-video",
-                    {
-                        "supportsBackgroundPlayback": true,
-                        "supportsPictureInPicture": true
-                    }
-                ]
-            ]
-        }
+      "newArchEnabled": true,
+      "plugins": [
+        [
+          "expo-video",
+          {
+            "supportsBackgroundPlayback": true,
+            "supportsPictureInPicture": true
+          }
+        ]
+      ]
     }
+  }
 }

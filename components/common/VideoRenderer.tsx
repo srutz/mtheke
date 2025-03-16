@@ -16,7 +16,8 @@ export function VideoRenderer({ item }: { item: FeedItem }) {
                     <Text className="text-gray-200 text-sm">{item.creator}</Text>
                     <Text className="text-gray-200 text-sm">- {item.category}</Text>
                 </View>
-                <Text className="text-white font-bold text-lg leading-[1.2]">{item.title}</Text>
+                <Text className="text-white font-bold text-lg leading-[1.2]"
+                    >{item.title}</Text>
                 <Text className="text-white text-gray-200">{item.description}</Text>
                 <View className="mt-2 flex flex-row items-center justify-between">
                     <DateRenderer date={item.pubDate} />

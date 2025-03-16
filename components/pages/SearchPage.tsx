@@ -20,12 +20,11 @@ export function SearchPage() {
     return (
         <SafeAreaView className="flex-1 bg-black">
             <SearchInput placeholder="Search videos" text={searchText} onChangeText={setSearchText} />
-            <View className="h-1 grow bg-slate-900">
-                <FlatList data={feed?.items}
+            <View className="h-1 grow bg-slate-900" >
+                <FlatList data={feed?.items}s
                     renderItem={({index,item}) => (<VideoRenderer key={index} item={item} />)}
                     keyExtractor={(item) => item.guid}
                     />
-
             </View>
         </SafeAreaView>
     )
