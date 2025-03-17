@@ -35,6 +35,14 @@ export function PlayerPage() {
         return () => clearInterval(i)
     }, [player])
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('blur', () => {
+            // pause when not visible
+            player.pause();
+        })
+        return unsubscribe;
+    }, [navigation, player])
+
     const togglePlayPause = () => {
         if (isPlaying) {
             player.pause()
@@ -50,23 +58,24 @@ export function PlayerPage() {
                 <View className="w-full h-96 bg-black rounded-lg overflow-hidden">
                     <VideoView style={{ width: "100%", height: "100%" }} player={player} allowsFullscreen allowsPictureInPicture />
                 </View>
-                <Text className="mt-4 text-white text-2xl font-bold mb-2">{item.title}</Text>
+                <Text className="mt-4 text-white text-xl font-bold mb-2">{item.title}</Text>
                 <View className="mb-4 flex flex-row gap-2 items-baseline">
                     <Text className="text-gray-200">{item.creator}</Text>
-                    <DateRenderer className="text-base" date={item.pubDate} />
+                    <DateRenderer className="text-sm" date={item.pubDate} />
+                    <DurationRenderer className="mt-4 text-white" label="Dauer" seconds={parseInt(item.duration)} />
                 </View>
                 <Text className="text-gray-300 text-sm mb-2 text-center">{item.description}</Text>
-                <ExternalLink url={item.websiteUrl} label="Website" />
                 <TouchableOpacity onPress={togglePlayPause} className="bg-slate-700 mt-4 p-4 rounded-full">
-                    <Ionicons name={isPlaying ? "pause" : "play"} size={32} color="white" />
+                    <Ionicons name={isPlaying ? "pause" : "play"} size={24} color="white" />
                 </TouchableOpacity>
-                <DurationRenderer className="mt-4 text-white" label="Dauer" seconds={parseInt(item.duration)} />
+                
                 {false && (
                     <TimeDisplay player={player} />
                 )}
-                <View className="mt-4 self-stretch flex flex-row justify-center">
+                <View className="mt-6 self-stretch flex flex-row justify-center items-center gap-4">
+                    <ExternalLink url={item.websiteUrl} label="Open Website" />
                     {feedType == "FAVORITES" ? (
-                        <Button title="Remove from favorites"  color="red" onPress={() => {
+                        <Button title="Remove favorite" color="red" onPress={() => {
                             const favoriteItem = deepCopyItem(item)
                             favoriteItem.currentTime = player.currentTime
                             appState.removeFavorite(favoriteItem)
@@ -77,7 +86,7 @@ export function PlayerPage() {
                                 text2: item.title + " was removed from favorites"
                             })
                         }} />
-                    ) : ( 
+                    ) : (
                         <Button title="Add to favorites" onPress={() => {
                             const favoriteItem = deepCopyItem(item)
                             favoriteItem.currentTime = player.currentTime
