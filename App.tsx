@@ -12,6 +12,7 @@ import { useFonts } from 'expo-font';
 import { FeedItem } from 'hooks/RssParser';
 import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
+import Toast from 'react-native-toast-message';
 import './global.css';
 
 
@@ -92,6 +93,7 @@ export default function App() {
                             <Ionicons name="cafe" size={22} color="white" />)
                     }} />
                 </Tab.Navigator>
+                <Toast position="bottom" visibilityTime={2000} />                
             </NavigationContainer>
         </QueryClientProvider>
     )

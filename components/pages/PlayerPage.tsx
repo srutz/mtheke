@@ -25,8 +25,8 @@ export function PlayerPage() {
     console.log("Playing video", videoUrl)
     const appState = useAppState()
     const player = useVideoPlayer(videoUrl, player => {
-        player.loop = true
-        player.play()
+        player.loop = false
+        //player.play()
     })
 
     useEffect(() => {
