@@ -8,7 +8,7 @@ export function AboutPage() {
         <SafeAreaView>
             <ScrollView>
                 <Header title="About MTheke" color="text-red-500"/>
-                <View className="flex-1 justify-center items-center p-4">
+                <View className="flex-1 justify-center items-center p-4 gap-2">
                     <Text className="text-white">
                         MTheke is a mobile app that allows you to search and watch videos from various media libraries.
                         The libraries are provided by public broadcasters and other media companies in Germany mostly.
@@ -19,7 +19,7 @@ export function AboutPage() {
                         {"\n\n"}
                     </Text>
                     <ExternalLink url="https://mediathekviewweb.de" label="MediathekViewWeb" />
-                    <ExternalLink url="https://github.com/srutz/mtheke" label="Github Page" />
+                    <ExternalLink url="https://github.com/srutz/mtheke" label="GitHub Project Page" />
                 </View>
             </ScrollView>
         </SafeAreaView>

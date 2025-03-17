@@ -35,8 +35,8 @@ export type ParsedFeed = {
 export async function parseFeed(xmlData: string): Promise<ParsedFeed> {
     return new Promise((resolve, reject) => {
         parseString(xmlData, (err, result) => {
-            console.log("err", err)
             if (err) {
+                console.error("xml-err", err)
                 reject(err)
                 return
             }

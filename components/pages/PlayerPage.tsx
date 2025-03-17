@@ -11,6 +11,7 @@ import { FeedItem } from "hooks/RssParser";
 import { formatNumber } from 'hooks/Util';
 import { useEffect, useState } from 'react';
 import { Button, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import Toast from 'react-native-toast-message';
 
 type RouteProps = RouteProp<RootStackParamList, "Player">;
 
@@ -70,12 +71,22 @@ export function PlayerPage() {
                             favoriteItem.currentTime = player.currentTime
                             appState.removeFavorite(favoriteItem)
                             navigation.navigate("Favorites")
+                            Toast.show({
+                                type: 'success',
+                                text1: 'Removed from favorites',
+                                text2: item.title + " was removed from favorites"
+                            })
                         }} />
                     ) : ( 
                         <Button title="Add to favorites" onPress={() => {
                             const favoriteItem = deepCopyItem(item)
                             favoriteItem.currentTime = player.currentTime
                             appState.addFavorite(favoriteItem)
+                            Toast.show({
+                                type: 'success',
+                                text1: 'Added to favorites',
+                                text2: item.title + " was added to favorites"
+                            })
                         }} />
                     )}
                 </View>

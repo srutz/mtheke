@@ -1,49 +1,55 @@
 {
-  "expo": {
-    "name": "mtheke",
-    "slug": "mtheke",
-    "version": "1.0.0",
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "experiments": {
-      "tsconfigPaths": true
-    },
-    "plugins": [
-      "expo-video",
-      "expo-font"
-    ],
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
     "expo": {
-      "newArchEnabled": true,
-      "plugins": [
-        [
-          "expo-video",
-          {
-            "supportsBackgroundPlayback": true,
-            "supportsPictureInPicture": true
-          }
-        ]
-      ]
+        "name": "mtheke",
+        "slug": "mtheke",
+        "version": "1.0.0",
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "experiments": {
+            "tsconfigPaths": true
+        },
+        "plugins": [
+            "expo-video",
+            "expo-font"
+        ],
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "dark",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.roots.mtheke"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "package": "com.roots.mtheke"
+        },
+        "androidNavigationBar": {
+            "visible": true,
+            "backgroundColor": "#000000"
+        },
+        "expo": {
+            "newArchEnabled": true,
+            "plugins": [
+                [
+                    "expo-video",
+                    {
+                        "supportsBackgroundPlayback": true,
+                        "supportsPictureInPicture": true
+                    }
+                ]
+            ]
+        }
     }
-  }
 }

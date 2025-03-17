@@ -16,8 +16,8 @@ export function Header({ title, color = "text-green-500", icon }: HeaderProps) {
             {icon && (
                 <Ionicons name={icon} size={40} color="#efefef" />
             )}
-            <Text className={cn("ml-4 mt-1 text-4xl font-bold", color)}>{firstLetter}</Text>
-            <Text className="mt-1 text-4xl font-bold text-gray-100">{remainingLetters}</Text>
+            <Text className={cn("ml-4 mt-1 text-3xl font-bold", color)}>{firstLetter}</Text>
+            <Text className="mt-1 text-3xl font-bold text-gray-100">{remainingLetters}</Text>
         </View>
     )
 }

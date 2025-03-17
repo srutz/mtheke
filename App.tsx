@@ -10,12 +10,17 @@ import { PlayerPage } from 'components/pages/PlayerPage';
 import { SearchPage } from 'components/pages/SearchPage';
 import { useFonts } from 'expo-font';
 import { FeedItem } from 'hooks/RssParser';
+import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
 import './global.css';
 
-console.log("Launching App.tsx")
+
+
+
 const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator(); // Create Tab Navigator
-const client = new QueryClient() 
+const Tab = createBottomTabNavigator()
+const client = new QueryClient()
+
 
 export type RootStackParamList = {
     Home: undefined,
@@ -29,7 +34,8 @@ function HomeStackNavigator() {
         <Stack.Navigator
             screenOptions={{
                 statusBarBackgroundColor: "#000000",
-                headerShown: false // Hide default header since we're using our custom StatusBar
+                headerShown: false,
+                contentStyle: { backgroundColor: '#000000' } // Set background color to dark
             }}>
             <Stack.Screen name="Home" component={SearchPage} />
             <Stack.Screen name="Player" component={PlayerPage} />
@@ -42,7 +48,8 @@ function FavoritesStackNavigator() {
         <Stack.Navigator
             screenOptions={{
                 statusBarBackgroundColor: "#000000",
-                headerShown: false // Hide default header since we're using our custom StatusBar
+                headerShown: false,
+                contentStyle: { backgroundColor: '#000000' } // Set background color to dark
             }}>
             <Stack.Screen name="Favorites" component={FavoritesPage} />
             <Stack.Screen name="Player" component={PlayerPage} />
@@ -55,22 +62,35 @@ export default function App() {
     const [loaded, error] = useFonts({
         "Cantarell": require("./assets/fonts/Cantarell-VF.otf"),
     })
+    useEffect(() => {
+        StatusBar.setBarStyle('dark-content')
+        StatusBar.setBackgroundColor('#000000')
+    }, [])
+
     if (!loaded && !error) {
-        return null;
+        return null
     }
     return (
         <QueryClientProvider client={client}>
             <NavigationContainer theme={DarkTheme} >
-                <Tab.Navigator screenOptions={{ headerShown: false }}>
-                    <Tab.Screen name="Home" component={HomeStackNavigator} options={ { tabBarIcon: () => (
-                        <Ionicons name="library" size={22} color="white" />)
-                    }}/>
-                    <Tab.Screen name="Favorites" component={FavoritesStackNavigator} options={ { tabBarIcon: () => (
-                        <Ionicons name="film" size={22} color="white" />)
-                    }}/>
-                    <Tab.Screen name="About" component={AboutPage} options={ { tabBarIcon: () => (
-                        <Ionicons name="cafe" size={22} color="white" />)
-                    }}/>
+                <Tab.Navigator screenOptions={{
+                    headerShown: false,
+                    tabBarStyle: { backgroundColor: '#000000' }, // Set tab bar background color to dark
+                    tabBarActiveTintColor: 'white', // Set active tab icon color to white
+                    tabBarInactiveTintColor: 'gray' // Set inactive tab icon color to gray
+                }}>
+                    <Tab.Screen name="Home" component={HomeStackNavigator} options={{
+                        tabBarIcon: () => (
+                            <Ionicons name="library" size={22} color="white" />)
+                    }} />
+                    <Tab.Screen name="Favorites" component={FavoritesStackNavigator} options={{
+                        tabBarIcon: () => (
+                            <Ionicons name="film" size={22} color="white" />)
+                    }} />
+                    <Tab.Screen name="About" component={AboutPage} options={{
+                        tabBarIcon: () => (
+                            <Ionicons name="cafe" size={22} color="white" />)
+                    }} />
                 </Tab.Navigator>
             </NavigationContainer>
         </QueryClientProvider>
