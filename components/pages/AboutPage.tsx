@@ -13,7 +13,8 @@ export function AboutPage() {
                         MTheke is a mobile app that allows you to search and watch videos from various media libraries.
                         The libraries are provided by public broadcasters and other media companies in Germany mostly.
                         {"\n\n"}
-                        The app is free and open-source. You can find the source code on GitHub.
+                        The app is free and open-source. You can find the source code on GitHub. 
+                        Written by Stepan Rutz (stepan.rutz AT stepanrutz.com)
                     </Text>
                     <ExternalLink url="https://github.com/srutz/mtheke" label="GitHub Project Page" />
                     <Text className="text-white">

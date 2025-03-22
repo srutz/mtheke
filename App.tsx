@@ -81,16 +81,16 @@ export default function App() {
                     tabBarInactiveTintColor: 'gray' // Set inactive tab icon color to gray
                 }}>
                     <Tab.Screen name="Home" component={HomeStackNavigator} options={{
-                        tabBarIcon: () => (
-                            <Ionicons name="library" size={22} color="white" />)
+                        tabBarIcon: ( { focused } ) => (
+                            <Ionicons name="library" size={22} color={ focused ? "white" : "gray" } />)
                     }} />
                     <Tab.Screen name="Favorites" component={FavoritesStackNavigator} options={{
-                        tabBarIcon: () => (
-                            <Ionicons name="film" size={22} color="white" />)
+                        tabBarIcon: ({ focused }) => (
+                            <Ionicons name="film" size={22} color={ focused ? "white" : "gray" } />)
                     }} />
                     <Tab.Screen name="About" component={AboutPage} options={{
-                        tabBarIcon: () => (
-                            <Ionicons name="cafe" size={22} color="white" />)
+                        tabBarIcon: ({focused}) => (
+                            <Ionicons name="cafe" size={22} color={ focused ? "white" : "gray" } />)
                     }} />
                 </Tab.Navigator>
                 <Toast position="bottom" visibilityTime={2000} />                
