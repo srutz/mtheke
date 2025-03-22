@@ -12,6 +12,7 @@ import { useFonts } from 'expo-font';
 import { FeedItem } from 'hooks/RssParser';
 import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 import './global.css';
 
@@ -73,28 +74,30 @@ export default function App() {
     }
     return (
         <QueryClientProvider client={client}>
-            <NavigationContainer theme={DarkTheme} >
-                <Tab.Navigator screenOptions={{
-                    headerShown: false,
-                    tabBarStyle: { backgroundColor: '#000000' }, // Set tab bar background color to dark
-                    tabBarActiveTintColor: 'white', // Set active tab icon color to white
-                    tabBarInactiveTintColor: 'gray' // Set inactive tab icon color to gray
-                }}>
-                    <Tab.Screen name="Home" component={HomeStackNavigator} options={{
-                        tabBarIcon: ( { focused } ) => (
-                            <Ionicons name="library" size={22} color={ focused ? "white" : "gray" } />)
-                    }} />
-                    <Tab.Screen name="Favorites" component={FavoritesStackNavigator} options={{
-                        tabBarIcon: ({ focused }) => (
-                            <Ionicons name="film" size={22} color={ focused ? "white" : "gray" } />)
-                    }} />
-                    <Tab.Screen name="About" component={AboutPage} options={{
-                        tabBarIcon: ({focused}) => (
-                            <Ionicons name="cafe" size={22} color={ focused ? "white" : "gray" } />)
-                    }} />
-                </Tab.Navigator>
-                <Toast position="bottom" visibilityTime={2000} />                
-            </NavigationContainer>
+            <GestureHandlerRootView>
+                <NavigationContainer theme={DarkTheme} >
+                    <Tab.Navigator screenOptions={{
+                        headerShown: false,
+                        tabBarStyle: { backgroundColor: '#000000' }, // Set tab bar background color to dark
+                        tabBarActiveTintColor: 'white', // Set active tab icon color to white
+                        tabBarInactiveTintColor: 'gray' // Set inactive tab icon color to gray
+                    }}>
+                        <Tab.Screen name="Home" component={HomeStackNavigator} options={{
+                            tabBarIcon: ({ focused }) => (
+                                <Ionicons name="library" size={22} color={focused ? "white" : "gray"} />)
+                        }} />
+                        <Tab.Screen name="Favorites" component={FavoritesStackNavigator} options={{
+                            tabBarIcon: ({ focused }) => (
+                                <Ionicons name="film" size={22} color={focused ? "white" : "gray"} />)
+                        }} />
+                        <Tab.Screen name="About" component={AboutPage} options={{
+                            tabBarIcon: ({ focused }) => (
+                                <Ionicons name="cafe" size={22} color={focused ? "white" : "gray"} />)
+                        }} />
+                    </Tab.Navigator>
+                    <Toast position="bottom" visibilityTime={2000} />
+                </NavigationContainer>
+            </GestureHandlerRootView>
         </QueryClientProvider>
     )
 }

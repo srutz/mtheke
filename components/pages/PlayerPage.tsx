@@ -4,6 +4,7 @@ import { RootStackParamList } from "App";
 import { DateRenderer } from 'components/common/DateRenderer';
 import { DurationRenderer } from 'components/common/DurationRenderer';
 import { ExternalLink } from 'components/common/ExternalLink';
+import { MyBottomSheet } from 'components/common/MyBottomSheet';
 import { useEvent } from 'expo';
 import { useVideoPlayer, VideoPlayer, VideoView } from 'expo-video';
 import { useAppState } from 'hooks/AppState';
@@ -53,8 +54,8 @@ export function PlayerPage() {
     const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing })
 
     return (
-        <ScrollView>
-            <View className="flex-1 justify-center items-center p-4">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
+            <View className="grow justify-center items-center p-4">
                 <View className="w-full h-96 bg-black rounded-lg overflow-hidden">
                     <VideoView style={{ width: "100%", height: "100%" }} player={player} allowsFullscreen allowsPictureInPicture />
                 </View>
@@ -68,11 +69,15 @@ export function PlayerPage() {
                 <TouchableOpacity onPress={togglePlayPause} className="bg-slate-700 mt-4 p-4 rounded-full">
                     <Ionicons name={isPlaying ? "pause" : "play"} size={24} color="white" />
                 </TouchableOpacity>
-                
+
                 {false && (
                     <TimeDisplay player={player} />
                 )}
-                <View className="mt-6 self-stretch flex flex-row justify-center items-center gap-4">
+                <View className="grow" />
+                {!false && (
+                <MyBottomSheet height={32}>
+                <View className="self-stretch flex flex-col justify-center items-center gap-4">
+                    <Text className="mb-8 text-white text-xl font-bold mb-2">Weitere Aktionen</Text>
                     <ExternalLink url={item.websiteUrl} label="Open Website" />
                     {feedType == "FAVORITES" ? (
                         <Button title="Remove favorite" color="red" onPress={() => {
@@ -99,6 +104,9 @@ export function PlayerPage() {
                         }} />
                     )}
                 </View>
+            </MyBottomSheet>
+            
+                )}
             </View>
         </ScrollView>
     )

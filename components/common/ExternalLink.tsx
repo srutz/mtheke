@@ -24,6 +24,6 @@ export function ExternalLink({ url, label = url, force = true }: { url: string, 
                 <Text className="underline text-white" >{label}</Text>
             </View>
         </TouchableOpacity>
-    );
+    )
 };
 
